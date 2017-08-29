@@ -1,0 +1,27 @@
+[user]
+ name = Blake Yoder
+ email = yoderblake@gmail.com
+
+
+[alias]
+  prune = fetch --prune
+  # deletes all local branches that
+  # have been deleted from the remote
+  glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset')))
+[push]
+  default = simple
+[pull]
+  rebase = true
+[core]
+  mergeoptions = --no-ff
+[web]
+	browser = chrome
+[merge]
+  tool = kdiff3
+[mergetool "kdiff3"]
+  path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
