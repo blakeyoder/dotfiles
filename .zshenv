@@ -1,1 +1,0 @@
-/Users/blakeyoder/dotfiles/zshenv
