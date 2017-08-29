@@ -66,7 +66,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '↠'
 let g:NERDTreeDirArrowCollapsible = '↡'
-let g:NERDTreeWinSize = 40
+let g:NERDTreeWinSize = 35
 let NERDTreeIgnore = ['\.pyc$']
 
 " background processes
@@ -79,6 +79,7 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000
 set clipboard=unnamed
+set cursorline
 
 " Sane Ignore For ctrlp
 let g:ctrlp_custom_ignore = {
