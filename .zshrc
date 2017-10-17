@@ -60,6 +60,7 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+export PYTHONDONTWRITEBYTECODE=1
 
 # git aliases
 alias ga='git add'
@@ -74,8 +75,6 @@ alias gcf='git commit --fixup'
 alias gco='git checkout'
 alias gcob='git checkout -b'
 alias gcom='git checkout master'
-alias gcos='git checkout staging'
-alias gcod='git checkout develop'
 alias gd='git diff'
 alias gda='git diff HEAD'
 alias gi='git init'
@@ -97,7 +96,9 @@ alias gstp='git stash pop'
 alias gsts='git stash save'
 alias gpush='git push '
 alias gtracked='git ls-tree -r master --name-only'
-alias gcleanup='git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done'
+alias gcleanup="git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done"
 
 #git functions
 function glf() { git log --all --grep="$1"; }
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

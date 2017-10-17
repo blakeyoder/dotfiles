@@ -34,6 +34,9 @@ Plugin 'mileszs/ack.vim'
 Plugin 'w0rp/ale'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'raimon49/requirements.txt.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 
 call vundle#end()
 
@@ -41,10 +44,10 @@ call vundle#end()
 filetype plugin indent on
 
 " move windows with leader plus natural keys
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " set leader to space
 let mapleader = " "
@@ -58,6 +61,8 @@ nnoremap <leader>y ggVGy<CR>
 " upper or lowercase the current word
 nnoremap <leader>u gUiW
 nnoremap <leader>v guiW
+nnoremap <leader>4 $
+nnoremap <leader>9 (
 
 " Begin NERDTree
 autocmd StdinReadPre * let s:std_in=1
@@ -103,6 +108,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 " Python mode settings
 let g:pymode_folding = 0
 autocmd FileType python set colorcolumn=500 " dont care to see the verical column
+nnoremap <leader>p oimport pdb; pdb.set_trace()<Esc>:w
 
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
