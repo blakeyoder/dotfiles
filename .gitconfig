@@ -8,6 +8,7 @@
   # deletes all local branches that
   # have been deleted from the remote
   glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset')))
+  cleanup = !git branch --merged | grep -v \"\\*\" | grep -v master | grep -v production | grep -v qa | grep -v staging | xargs -n 1 git branch -d
 [push]
   default = simple
 [pull]
@@ -21,9 +22,15 @@
 [mergetool "kdiff3"]
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
 [filter "lfs"]
-	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+	clean = git-lfs clean -- %f
 [commit]
 	template = /Users/blakeyoder/.git_commit_msg.txt
+[color]
+	ui = auto
+[advice]
+	statusHints = false
+[branch]
+	autosetupmerge = true
