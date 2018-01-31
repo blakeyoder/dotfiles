@@ -1,6 +1,6 @@
 [user]
- name = Blake Yoder
- email = yoderblake@gmail.com
+	name = Blake Yoder
+	email = yoderblake@gmail.com
 
 
 [alias]
@@ -16,16 +16,16 @@
 [core]
   mergeoptions = --no-ff
 [web]
-	browser = chrome
+	browser = firefox
 [merge]
   tool = kdiff3
 [mergetool "kdiff3"]
   path = /Applications/kdiff3.app/Contents/MacOS/kdiff3
 [filter "lfs"]
+	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
-	clean = git-lfs clean -- %f
 [commit]
 	template = /Users/blakeyoder/.git_commit_msg.txt
 [color]

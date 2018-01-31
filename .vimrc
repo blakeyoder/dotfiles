@@ -37,6 +37,9 @@ Plugin 'raimon49/requirements.txt.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+Plugin 'mattn/emmet-vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
 call vundle#end()
 
@@ -85,6 +88,7 @@ set undofile
 set undolevels=1000
 set clipboard=unnamed
 set cursorline
+set synmaxcol=180
 
 " Sane Ignore For ctrlp
 let g:ctrlp_custom_ignore = {
@@ -189,7 +193,7 @@ let python_version_2 = 1
 autocmd FileType python setlocal shiftwidth=4 expandtab tabstop=4 softtabstop=4 colorcolumn=80
 
 " W0rp/ale linter config
-let g:ale_python_flake8_args="--ignore=E501,E128"
+let g:ale_python_flake8_args="--ignore=E501,E128,C0103"
 let g:ale_fixers = {
 \   'python': ['flake8'],
 \}
