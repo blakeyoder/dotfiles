@@ -40,6 +40,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'mattn/emmet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'ervandew/supertab'
 
 call vundle#end()
 
