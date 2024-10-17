@@ -38,7 +38,6 @@ Plugin 'mattn/emmet-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'ervandew/supertab'
-Plugin 'Valloric/MatchTagAlways'
 Plugin 'kana/vim-textobj-user'
 Plugin 'whatyouhide/vim-textobj-xmlattr'
 Plugin 'rust-lang/rust.vim'
@@ -167,6 +166,9 @@ set scrolloff=3
 set backspace=indent,eol,start
 set matchpairs+=<:> " use % to jump between pairs
 runtime! macros/matchit.vim
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Map jj to escape sequence 
 inoremap jj <ESC>
@@ -228,3 +230,5 @@ let g:ale_fix_on_save = 1
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 silent! nmap <C-F> :Find<CR>
 silent! nmap <C-P> :GFiles<CR>
+
+set mouse-=a
