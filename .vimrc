@@ -45,12 +45,12 @@ Plugin 'leafgarland/typescript-vim'
 Plugin 'peitalin/vim-jsx-typescript'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plugin 'heavenshell/vim-jsdoc'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 Plugin 'styled-components/vim-styled-components'
-Plugin 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 
 call vundle#end()
 
@@ -76,7 +76,6 @@ nnoremap <leader>4 $
 nnoremap <leader>9 (
 
 " use mouse for intellisense
-set mouse=a
 
 " Begin NERDTree
 autocmd StdinReadPre * let s:std_in=1
@@ -172,7 +171,12 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 " Map jj to escape sequence 
 inoremap jj <ESC>
-
+" Quick save
+nnoremap <leader>w :w<CR>
+" Quick quit
+nnoremap <leader>q :q<CR>
+" Quick source vimrc
+nnoremap <leader>sv :source $MYVIMRC<CR>
 " Searching
 nnoremap / /\v
 vnoremap / /\v
@@ -197,6 +201,24 @@ set number
 hi Comment cterm=italic
 hi htmlArg cterm=italic
 hi Type    cterm=italic
+
+" Markdown settings
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = ['html', 'python', 'bash=sh', 'javascript', 'typescript']
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+
+" Markdown preview settings
+let g:mkdp_auto_start = 1
+let g:mkdp_auto_close = 1
+let g:mkdp_refresh_slow = 0
+let g:mkdp_browser = ''
+
+" Auto-open markdown files in preview mode
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+autocmd FileType markdown nnoremap <leader>mp :MarkdownPreview<CR>
+autocmd FileType markdown nnoremap <leader>ms :MarkdownPreviewStop<CR>
 
 " Begin python syntax hi
 let python_highlight_all = 1
@@ -232,3 +254,4 @@ silent! nmap <C-F> :Find<CR>
 silent! nmap <C-P> :GFiles<CR>
 
 set mouse-=a
+
