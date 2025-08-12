@@ -6,6 +6,121 @@
 " ███    ███ ███  ███   ███   ███
 " ███    ███ ███  ███   ███   ███
 "  ▀██████▀  █▀    ▀█   ███   █▀
+"
+"===============================================================================
+" Blake's Vim Configuration
+"===============================================================================
+"
+" This is a fully-featured Vim configuration optimized for web development,
+" Python, Rust, and general programming. It uses Vundle for plugin management
+" and includes comprehensive settings for modern development workflows.
+"
+" INSTALLATION INSTRUCTIONS:
+"
+" 1. Install Vim (8.0+) or Neovim
+"    macOS: brew install vim
+"    Ubuntu: sudo apt install vim
+"
+" 2. Install Vundle (Plugin Manager):
+"    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"
+" 3. Copy this file to ~/.vimrc:
+"    cp vimrc ~/.vimrc
+"
+" 4. Install plugins:
+"    vim +PluginInstall +qall
+"
+" 5. Install additional dependencies:
+"    - ripgrep: brew install ripgrep (for fast searching)
+"    - fzf: brew install fzf (for fuzzy file finding)
+"    - Node.js: for JavaScript/TypeScript support and some plugins
+"
+" MAIN FEATURES:
+"
+" • File Management: NERDTree file explorer with intelligent auto-close
+" • Git Integration: Fugitive for Git commands, GitGutter for diff visualization
+" • Search & Navigation: FZF fuzzy finder, ripgrep integration, quick file switching
+" • Code Intelligence: ALE for linting/fixing, goto definition, find references
+" • Language Support: JavaScript/TypeScript/JSX, Python, Rust, Markdown, HTML/CSS
+" • Productivity: Auto-pairs, surround text objects, smart commenting, emmet
+" • UI/UX: Gruvbox theme, airline status bar, buffer management, cursor enhancements
+"
+" PLUGIN OVERVIEW:
+"
+" Core Functionality:
+" • VundleVim/Vundle.vim - Plugin manager
+" • morhetz/gruvbox - Beautiful color scheme
+" • vim-airline/vim-airline - Enhanced status line
+"
+" File & Project Management:
+" • scrooloose/nerdtree - File tree explorer (Ctrl+n to toggle)
+" • junegunn/fzf + fzf.vim - Fuzzy file finder (Ctrl+p for files)
+" • mileszs/ack.vim - Enhanced search capabilities
+"
+" Git Integration:
+" • tpope/vim-fugitive - Git commands in Vim
+" • tpope/vim-rhubarb - GitHub integration
+" • airblade/vim-gitgutter - Git diff in gutter
+"
+" Code Intelligence & Linting:
+" • w0rp/ale - Asynchronous linting and fixing
+" • editorconfig/editorconfig-vim - EditorConfig support
+"
+" Text Editing & Productivity:
+" • tpope/vim-surround - Surround text with quotes/brackets
+" • tpope/vim-repeat - Enhance . repeat command
+" • jiangmiao/auto-pairs - Auto-close brackets/quotes
+" • scrooloose/nerdcommenter - Smart commenting
+" • mattn/emmet-vim - HTML/CSS expansion
+"
+" Language-Specific Support:
+" • pangloss/vim-javascript + mxw/vim-jsx - JavaScript/React
+" • leafgarland/typescript-vim + peitalin/vim-jsx-typescript - TypeScript
+" • rust-lang/rust.vim - Rust language support
+" • plasticboy/vim-markdown + iamcco/markdown-preview.nvim - Markdown
+" • styled-components/vim-styled-components - CSS-in-JS
+"
+" Utility Plugins:
+" • djoshea/vim-autoread - Auto-reload changed files
+" • moll/vim-bbye - Better buffer closing
+" • kshenoy/vim-signature - Mark visualization
+" • ervandew/supertab - Tab completion
+" • heavenshell/vim-jsdoc - JSDoc generation
+"
+" KEY MAPPINGS SUMMARY:
+"
+" Leader key: <Space>
+"
+" File Operations:
+" • <Space>w - Quick save
+" • <Space>q - Quick quit  
+" • <Space>sv - Source vimrc
+" • Ctrl+n - Toggle NERDTree
+" • Ctrl+p - Fuzzy file search
+" • Ctrl+f - Find in files (ripgrep)
+"
+" Buffer Management:
+" • <Space>T - New buffer
+" • <Space>l - Next buffer
+" • <Space>h - Previous buffer
+" • <Space>bl - List buffers
+" • <Space>q - Close current buffer
+"
+" Window Navigation:
+" • Ctrl+j/k/l/h - Move between windows
+"
+" Code Navigation:
+" • :Goto - Go to definition (ALE)
+" • :Refs - Find references (ALE) 
+" • :Docs - Show documentation (ALE)
+"
+" Editing:
+" • jj - Escape to normal mode
+" • <Space>a - Select all
+" • <Space>y - Copy all
+" • <Space><Space> - Clear search highlighting
+"
+"===============================================================================
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
