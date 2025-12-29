@@ -1,0 +1,53 @@
+{
+  "env": {
+    "BASH_DEFAULT_TIMEOUT_MS": "1800000",
+    "BASH_MAX_TIMEOUT_MS": "7200000"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "mcp__linear-server__get_issue",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .claude/hooks/linear-feature-flag-hook.py"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "example-skills@anthropic-agent-skills": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "allowedTools": [
+    "Read",
+    "Grep",
+    "Glob",
+    "Edit:readonly",
+    "Bash(gh pr view *)",
+    "Bash(gh pr list *)",
+    "Bash(gh issue view *)",
+    "Bash(gh issue list *)",
+    "Bash(gh repo view *)",
+    "Bash(gh search issues *)",
+    "Bash(gh alias list *)",
+    "Bash(gh auth status *)",
+    "Bash(git status *)",
+    "Bash(git log *)"
+  ],
+  "defaultMode": "acceptEdits",
+  "mcpServers": {
+    "arkham": {
+      "command": "node",
+      "args": [
+        "/Users/blake/BerryStreetEngineering/arkham/packages/mcp-server/dist/index.js"
+      ],
+      "env": {
+        "ARKHAM_GRAPHQL_ENDPOINT": "https://api.arkham.berrystreet.co/graphql",
+        "ARKHAM_EMAIL": "${ARKHAM_EMAIL}",
+        "ARKHAM_PASSWORD": "${ARKHAM_PASSWORD}"
+      }
+    }
+  }
+}

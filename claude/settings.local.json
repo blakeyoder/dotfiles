@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(chmod:*)",
+      "Bash(tree:*)",
+      "Bash(find:*)",
+      "Bash(# Create a dedicated Screenshots folder in your organized structure\nmkdir -p ~/Documents/Screenshots/{Work,Personal,Temp}\n\n# Configure better screenshot settings\n# Set save location to our organized Screenshots folder\ndefaults write com.apple.screencapture location ~/Documents/Screenshots/\n\n# Remove drop shadow from window screenshots (cleaner look)\ndefaults write com.apple.screencapture disable-shadow -bool true\n\n# Change default file format to PNG (best quality)\ndefaults write com.apple.screencapture type png\n\n# Include date and time in filename for better organization\ndefaults write com.apple.screencapture include-date -bool true\n\n# Show mouse pointer in screenshots (useful for tutorials)\ndefaults write com.apple.screencapture showsCursor -bool false\n\n# Disable the sound effect\ndefaults write com.apple.screencapture sound -bool false)",
+      "mcp__arkham__get_categories",
+      "mcp__arkham__create_prompt",
+      "mcp__arkham__update_prompt",
+      "mcp__arkham__get_tags",
+      "mcp__rube__RUBE_SEARCH_TOOLS",
+      "mcp__rube__RUBE_CREATE_PLAN",
+      "mcp__rube__RUBE_MANAGE_CONNECTIONS",
+      "mcp__rube__RUBE_WAIT_FOR_CONNECTION",
+      "mcp__rube__RUBE_MULTI_EXECUTE_TOOL",
+      "mcp__rube__RUBE_REMOTE_WORKBENCH"
+    ],
+    "deny": []
+  }
+}

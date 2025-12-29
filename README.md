@@ -1,6 +1,49 @@
 # dotfiles
 Let's not have a panic attack in the future
 
+# Claude Code
+
+Claude Code configuration including custom commands, skills, hooks, and agents.
+
+## Quick Install
+
+```bash
+./install-claude.sh
+```
+
+## What's Included
+
+| Component | Description |
+|-----------|-------------|
+| `CLAUDE.md` | Global instructions and development guidelines |
+| `settings.json` | Global settings, MCP servers, allowed tools |
+| `settings.local.json` | Local permissions |
+| `commands/prisma:validate` | Validate Prisma schema and detect migration issues |
+| `commands/prisma:migrate` | Create and apply Prisma migrations |
+| `commands/docs:system` | Generate technical documentation |
+| `commands/arkham:store` | Store patterns to Arkham prompt database |
+| `skills/test-driven-development` | TDD workflow enforcement |
+| `skills/testing-anti-patterns` | Prevent common testing mistakes |
+| `hooks/linear-feature-flag-hook.py` | Detect feature flag requirements from Linear tickets |
+| `agents/plan-validator.md` | Validate implementation plans with Codex |
+
+## Post-Install Setup
+
+1. Edit `~/.claude-secrets` with your credentials:
+   ```bash
+   export ARKHAM_EMAIL="your-email@example.com"
+   export ARKHAM_PASSWORD="your-password"
+   ```
+
+2. Add to your `.zshrc`:
+   ```bash
+   source ~/.claude-secrets
+   ```
+
+3. Update MCP server paths in `~/.claude/settings.json` if your project locations differ.
+
+---
+
 # `.vimrc`
 To use the .vimrc file you've linked, follow these steps:
 
