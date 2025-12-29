@@ -1,145 +1,128 @@
 # dotfiles
-Let's not have a panic attack in the future
 
-# Claude Code
-
-Claude Code configuration including custom commands, skills, hooks, and agents.
+Blake's macOS development environment configuration.
 
 ## Quick Install
 
 ```bash
+# Clone the repo
+git clone https://github.com/blakeyoder/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# Install dotfiles (creates symlinks)
+./install.sh
+
+# Install Claude Code config (optional)
 ./install-claude.sh
+```
+
+## Prerequisites
+
+Install these via Homebrew:
+
+```bash
+# Core tools
+brew install neovim starship zoxide bat eza fzf ripgrep fd
+
+# Optional but recommended
+brew install git tmux
 ```
 
 ## What's Included
 
-| Component | Description |
-|-----------|-------------|
-| `CLAUDE.md` | Global instructions and development guidelines |
-| `settings.json` | Global settings, MCP servers, allowed tools |
-| `settings.local.json` | Local permissions |
-| `commands/prisma:validate` | Validate Prisma schema and detect migration issues |
-| `commands/prisma:migrate` | Create and apply Prisma migrations |
-| `commands/docs:system` | Generate technical documentation |
-| `commands/arkham:store` | Store patterns to Arkham prompt database |
-| `skills/test-driven-development` | TDD workflow enforcement |
-| `skills/testing-anti-patterns` | Prevent common testing mistakes |
-| `hooks/linear-feature-flag-hook.py` | Detect feature flag requirements from Linear tickets |
-| `agents/plan-validator.md` | Validate implementation plans with Codex |
+| File | Description |
+|------|-------------|
+| `.zshrc` | Zsh configuration with modern CLI tools |
+| `.gitconfig` | Git configuration |
+| `.vimrc` | Vim configuration with Vundle plugins |
+| `nvim/` | Neovim configuration with Lazy.nvim |
+| `.tmux.conf` | Tmux configuration |
+| `karabiner.json` | Karabiner-Elements key mappings |
+| `claude/` | Claude Code configuration |
 
 ## Post-Install Setup
 
-1. Edit `~/.claude-secrets` with your credentials:
-   ```bash
-   export ARKHAM_EMAIL="your-email@example.com"
-   export ARKHAM_PASSWORD="your-password"
-   ```
+### Vim
 
-2. Add to your `.zshrc`:
-   ```bash
-   source ~/.claude-secrets
-   ```
+```bash
+# Install Vundle plugin manager
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-3. Update MCP server paths in `~/.claude/settings.json` if your project locations differ.
+# Install plugins
+vim +PluginInstall +qall
+```
 
----
+### Neovim
 
-# `.vimrc`
-To use the .vimrc file you've linked, follow these steps:
+Plugins auto-install on first launch via Lazy.nvim:
 
-1. Download the .vimrc file from the GitHub repository.
+```bash
+nvim
+```
 
-2. Place the .vimrc file in your home directory. On Unix-based systems (macOS, Linux), this is typically:
+### Shell
 
-   ```
-   ~/.vimrc
-   ```
+The `.zshrc` expects Oh My Zsh:
 
-   On Windows, it would be:
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-   ```
-   C:\Users\YourUsername\_vimrc
-   ```
+# Install zsh plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
 
-3. Ensure you have Vim installed on your system. If not, install it using your system's package manager or download it from the official Vim website.
+### Secrets
 
-4. This particular .vimrc file uses Vundle as a plugin manager[1]. You'll need to install Vundle first:
+Create `~/.secrets` for API keys and credentials:
 
-   ```
-   git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-   ```
+```bash
+# ~/.secrets
+export OPENAI_API_KEY="your-key"
+# ... other secrets
+```
 
-5. Open Vim and run the following command to install the plugins specified in the .vimrc:
+Add to `.zshrc`: `source ~/.secrets`
 
-   ```
-   :PluginInstall
-   ```
+## Karabiner-Elements
 
-6. Restart Vim for all changes to take effect.
+After running `install.sh`, restart Karabiner:
 
-## Additional Notes
+```bash
+launchctl kickstart -k gui/$(id -u)/org.pqrs.karabiner.karabiner_console_user_server
+```
 
-- This .vimrc file sets up various plugins and configurations, including NERDTree, ctrlp, and custom key mappings[1].
-- It also configures specific settings for Ruby and JavaScript development[1].
-- Make sure you have the necessary dependencies installed for the plugins to work correctly (e.g., git for Vundle).
+Key mappings:
+- Caps Lock -> Escape (tap) / Control (hold)
+- Caps Lock -> Hyper key (Cmd+Ctrl+Opt+Shift)
 
-If you encounter any issues or want to customize the configuration further, you can edit the .vimrc file directly. Remember to reload Vim or run `:source ~/.vimrc` after making changes.
+## Claude Code
 
-Citations:
-[1] https://github.com/blakeyoder/dotfiles/blob/master/.vimrc
+See `claude/` directory for Claude Code configuration including:
+- `CLAUDE.md` - Global instructions and development guidelines
+- `settings.json` - MCP servers and allowed tools
+- `commands/` - Custom slash commands
+- `skills/` - Workflow enforcement skills
+- `hooks/` - Automation hooks
+- `agents/` - Custom agents
 
+Install with: `./install-claude.sh`
 
-# `Karabiner Elements`
-To export your settings files for Karabiner-Elements, follow these steps:
+## iTerm2
 
-1. Locate the Karabiner-Elements configuration folder. It's typically found at:
+Import the iTerm2 profile:
 
-   ```
-   ~/.config/karabiner
-   ```
+1. Open iTerm2 -> Preferences -> Profiles
+2. Click "Other Actions" -> "Import JSON Profiles"
+3. Select `com.googlecode.iterm2.plist`
 
-2. The main configuration file you'll want to export is:
+## Updating
 
-   ```
-   ~/.config/karabiner/karabiner.json
-   ```
+Since dotfiles are symlinked, just pull updates:
 
-   This file contains your main Karabiner-Elements settings[2].
+```bash
+cd ~/dotfiles
+git pull
+```
 
-3. You may also want to export any custom complex modifications you've created. These are stored in:
-
-   ```
-   ~/.config/karabiner/assets/complex_modifications
-   ```
-
-4. To transfer these settings to a new machine:
-
-   - Copy the entire `~/.config/karabiner` folder to the same location on the new machine[2].
-   - If Karabiner-Elements is already installed on the new machine, replace its existing configuration folder with your copied one.
-
-5. After copying the files, restart the Karabiner-Elements process on the new machine by running this command in Terminal[3]:
-
-   ```
-   launchctl kickstart -k gui/`id -u`/org.pqrs.karabiner.karabiner_console_user_server
-   ```
-
-6. If you prefer to sync your settings automatically, you can create a symbolic link to store the configuration in a cloud-synced folder:
-
-   ```
-   mv ~/.config/karabiner ~/Dropbox/karabiner-config
-   ln -s ~/Dropbox/karabiner-config ~/.config/karabiner
-   ```
-
-   Replace "Dropbox" with your preferred cloud storage service[3].
-
-Remember to install Karabiner-Elements on the new machine before transferring the settings. Also, you may need to grant necessary permissions on the new machine for Karabiner-Elements to function properly[6].
-
-Citations:
-[1] https://github.com/pqrs-org/Karabiner-Elements
-[2] https://karabiner-elements.pqrs.org/docs/json/location/
-[3] https://karabiner-elements.pqrs.org/docs/manual/misc/configuration-file-path/
-[4] https://www.youtube.com/watch?v=VIZxSum1GwA
-[5] https://www.reddit.com/r/mac/comments/s0strq/any_way_to_auto_backup_karabiner_elements_macros/
-[6] https://github.com/pqrs-org/KE-complex_modifications/issues/572
-[7] https://stackoverflow.com/questions/22943676/how-to-export-iterm2-profiles/23356086
-[8] https://iterm2.com/documentation/2.1/documentation-preferences.html
+Changes are reflected immediately (no reinstall needed).

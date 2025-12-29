@@ -44,7 +44,7 @@ autocmd("FileType", {
   pattern = "json",
   callback = function()
     vim.opt_local.foldmethod = "syntax"
-    vim.cmd("normal zR")
+    vim.opt_local.foldlevel = 99
   end,
 })
 

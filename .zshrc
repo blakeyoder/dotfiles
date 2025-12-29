@@ -1,8 +1,8 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Theme
-ZSH_THEME="robbyrussell"
+# Theme (disabled - using starship instead)
+# ZSH_THEME="robbyrussell"
 
 # History configuration
 HIST_STAMPS="yyyy-mm-dd"
@@ -11,6 +11,9 @@ SAVEHIST=50000
 setopt SHARE_HISTORY          # Share history between sessions
 setopt HIST_IGNORE_ALL_DUPS   # Remove older duplicates
 setopt HIST_REDUCE_BLANKS     # Remove extra whitespace
+setopt HIST_IGNORE_SPACE      # Commands starting with space aren't saved
+setopt HIST_VERIFY            # Show command before executing from history
+setopt EXTENDED_HISTORY       # Save timestamps in history
 
 # Completion options
 setopt AUTO_CD              # cd by typing directory name
@@ -21,12 +24,12 @@ zstyle ':completion:*' menu select  # Arrow-key driven completion
 # Plugins - install external ones first:
 # git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting z docker npm)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting docker npm)
 
 source $ZSH/oh-my-zsh.sh
 
 # Editor
-export EDITOR='vim'
+export EDITOR='nvim'
 export VISUAL="$EDITOR"
 
 # Cache homebrew prefix
@@ -55,12 +58,13 @@ nvm() {
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   nvm "$@"
 }
-node() { nvm && node "$@"; }
-npm() { nvm && npm "$@"; }
-npx() { nvm && npx "$@"; }
+node() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; node "$@"; }
+npm() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npm "$@"; }
+npx() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npx "$@"; }
 
-# Autojump
-[[ -s "$HOMEBREW_PREFIX/etc/autojump.sh" ]] && . "$HOMEBREW_PREFIX/etc/autojump.sh"
+# Zoxide (smarter autojump replacement)
+eval "$(zoxide init zsh)"
+alias j="z"
 
 # Google Cloud SDK
 if [ -f '/Users/blake/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/blake/google-cloud-sdk/path.zsh.inc'; fi
@@ -68,13 +72,24 @@ if [ -f '/Users/blake/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bla
 
 # Github aliases
 alias openpr='gh pr view --json url -q .url | xargs open'
-alias cc='claude --dangerously-skip-permissions'
+alias cc='claude --dangerously-skip-permissions --append-system-prompt "$(cat auto-plan-mode.txt)"'
 
 # Secrets (API keys, tokens) - not tracked in version control
 [[ -f ~/.secrets ]] && source ~/.secrets
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # Use Neovim as default
 alias vim="nvim"
 alias vi="nvim"
+
+# Modern CLI replacements
+alias cat="bat --paging=never"
+alias ls="eza --icons --group-directories-first"
+alias ll="eza -la --icons --group-directories-first"
+alias la="eza -a --icons --group-directories-first"
+alias tree="eza --tree --icons"
+
+# fzf - fuzzy finder (Ctrl+R for history, Ctrl+T for files)
+source <(fzf --zsh)
+
+# Starship prompt
+eval "$(starship init zsh)"

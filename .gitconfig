@@ -1,3 +1,9 @@
 [user]
 	email = yoderblake@gmail.com
-	name = blakeyoder
+	name = Blake Yoder
+[push]
+	autoSetupRemote = true
+[core]
+	excludesfile = /Users/blake/.gitignore
+[init]
+	defaultBranch = main
