@@ -69,27 +69,46 @@ return {
     end,
   },
 
-  -- File tree (replaces NERDTree)
+  -- File tree (neo-tree)
   {
-    "nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
     config = function()
-      require("nvim-tree").setup({
-        view = {
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        filesystem = {
+          filtered_items = {
+            hide_dotfiles = true,
+            hide_gitignored = false,
+            hide_by_name = { "__pycache__", ".git" },
+            hide_by_pattern = { "*.pyc" },
+          },
+          follow_current_file = { enabled = true },
+          hijack_netrw_behavior = "open_current",
+        },
+        window = {
           width = 28,
+          mappings = {
+            ["<space>"] = "none", -- disable space so it doesn't conflict with leader
+          },
         },
-        filters = {
-          custom = { ".pyc$", "__pycache__", ".git" },
-        },
-        actions = {
-          open_file = {
-            quit_on_open = true,
+        event_handlers = {
+          {
+            event = "file_open_requested",
+            handler = function()
+              require("neo-tree.command").execute({ action = "close" })
+            end,
           },
         },
       })
-      -- Keymaps (same as your NERDTree mappings)
-      vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { desc = "Toggle file tree" })
-      vim.keymap.set("n", "<C-m>", ":NvimTreeFindFile<CR>", { desc = "Find file in tree" })
+      -- Keymaps (same as before)
+      vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", { desc = "Toggle file tree" })
+      vim.keymap.set("n", "<C-m>", ":Neotree reveal<CR>", { desc = "Find file in tree" })
     end,
   },
 

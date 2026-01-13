@@ -85,3 +85,16 @@ autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
     end
   end,
 })
+
+-- Open Telescope git_files when opening a directory
+augroup("DirectoryOpen", { clear = true })
+autocmd("VimEnter", {
+  group = "DirectoryOpen",
+  callback = function()
+    if vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
+      vim.schedule(function()
+        require("telescope.builtin").git_files()
+      end)
+    end
+  end,
+})
