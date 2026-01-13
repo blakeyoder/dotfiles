@@ -72,7 +72,7 @@ if [ -f '/Users/blake/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bla
 
 # Github aliases
 alias openpr='gh pr view --json url -q .url | xargs open'
-alias cc='claude --dangerously-skip-permissions --append-system-prompt "$(cat auto-plan-mode.txt)"'
+alias cc='claude --dangerously-skip-permissions --append-system-prompt "$(cat ~/.auto-plan-mode.txt)"'
 
 # Secrets (API keys, tokens) - not tracked in version control
 [[ -f ~/.secrets ]] && source ~/.secrets

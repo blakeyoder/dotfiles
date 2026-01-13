@@ -17,8 +17,8 @@ map("n", "<leader>a", "ggVG", { desc = "Select all" })
 -- Copy all
 map("n", "<leader>y", "ggVGy", { desc = "Copy all" })
 
--- Quick movement shortcuts
-map("n", "<leader>4", "$", { desc = "End of line" })
+-- Quick movement shortcuts (note: <leader>4 used by harpoon)
+map("n", "<leader>0", "$", { desc = "End of line" })
 map("n", "<leader>9", "(", { desc = "Previous sentence" })
 
 -- Buffer management

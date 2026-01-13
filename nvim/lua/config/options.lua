@@ -7,12 +7,12 @@ opt.autoread = true
 opt.history = 200
 opt.swapfile = false
 opt.writebackup = false
-opt.undodir = vim.fn.stdpath("data") .. "/undo"
 opt.undofile = true
 opt.undolevels = 1000
 
 -- Create undodir if it doesn't exist
 local undodir = vim.fn.stdpath("data") .. "/undo"
+opt.undodir = undodir
 if vim.fn.isdirectory(undodir) == 0 then
   vim.fn.mkdir(undodir, "p", tonumber("0700", 8))
 end
@@ -26,7 +26,6 @@ opt.synmaxcol = 500
 opt.termguicolors = true
 opt.number = true
 opt.relativenumber = true
-opt.lazyredraw = true
 opt.showmode = false
 opt.laststatus = 2
 opt.belloff = "all"
@@ -34,14 +33,10 @@ opt.fillchars = { vert = " ", stl = " ", stlnc = " " }
 opt.signcolumn = "yes"
 
 -- Buffers
-opt.hidden = true
 opt.updatetime = 250
 
 -- Security
 opt.modelines = 0
-
--- Encoding
-opt.encoding = "utf-8"
 
 -- Whitespace
 opt.wrap = true
@@ -54,7 +49,6 @@ opt.shiftround = false
 
 -- Cursor motion
 opt.scrolloff = 3
-opt.backspace = { "indent", "eol", "start" }
 opt.matchpairs:append("<:>")
 
 -- Searching
