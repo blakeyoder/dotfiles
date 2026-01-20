@@ -37,5 +37,8 @@ require("lazy").setup("plugins", {
   },
 })
 
+-- Load local plugins
+require("git-week-summary").setup()
+
 -- Set colorscheme after plugins load
 vim.cmd.colorscheme("gruvbox")

@@ -42,6 +42,14 @@ echo "Linking dotfiles..."
 # Shell configuration
 symlink "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 
+# Starship prompt configuration
+symlink "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
+
+# Aerospace window manager (optional)
+if [ -f "$DOTFILES_DIR/.aerospace.toml" ]; then
+    symlink "$DOTFILES_DIR/.aerospace.toml" "$HOME/.aerospace.toml"
+fi
+
 # Git configuration
 symlink "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 
@@ -62,6 +70,8 @@ echo "Dotfiles installed!"
 echo ""
 echo "Linked files:"
 echo "  ~/.zshrc"
+echo "  ~/.config/starship.toml"
+echo "  ~/.aerospace.toml"
 echo "  ~/.gitconfig"
 echo "  ~/.vimrc"
 echo "  ~/.config/nvim"
