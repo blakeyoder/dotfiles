@@ -95,6 +95,7 @@ return {
           width = 28,
           mappings = {
             ["<space>"] = "none", -- disable space so it doesn't conflict with leader
+            ["<C-f>"] = "none", -- disable so it doesn't conflict with telescope live_grep
           },
         },
         event_handlers = {
@@ -109,6 +110,14 @@ return {
       -- Keymaps (same as before)
       vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", { desc = "Toggle file tree" })
       vim.keymap.set("n", "<C-m>", ":Neotree reveal<CR>", { desc = "Find file in tree" })
+      vim.keymap.set("n", "<leader>i", function()
+        local manager = require("neo-tree.sources.manager")
+        local state = manager.get_state("filesystem")
+        local filtered = state.filtered_items or {}
+        filtered.visible = not filtered.visible
+        state.filtered_items = filtered
+        require("neo-tree.sources.filesystem.commands").refresh(state)
+      end, { desc = "Toggle hidden files in tree" })
     end,
   },
 

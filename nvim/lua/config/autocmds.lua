@@ -86,7 +86,7 @@ autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
   end,
 })
 
--- Open Telescope when opening a directory (git_files if git repo, else find_files)
+-- Open Telescope live_grep when opening a directory
 augroup("DirectoryOpen", { clear = true })
 autocmd("VimEnter", {
   group = "DirectoryOpen",
@@ -94,11 +94,7 @@ autocmd("VimEnter", {
     if vim.fn.argc() == 1 and vim.fn.isdirectory(vim.fn.argv(0)) == 1 then
       vim.schedule(function()
         local builtin = require("telescope.builtin")
-        -- Use git_files if in a git repo, otherwise find_files
-        local ok = pcall(builtin.git_files, { show_untracked = true })
-        if not ok then
-          builtin.find_files()
-        end
+        builtin.live_grep()
       end)
     end
   end,

@@ -28,6 +28,11 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting docker npm)
 
 source $ZSH/oh-my-zsh.sh
 
+# Clean up stale zcompdump files from hostname changes (runs once, fast)
+for f in ~/.zcompdump*; do
+  [[ "$f" == ~/.zcompdump-${HOST}-${ZSH_VERSION}* ]] || rm -f "$f"
+done
+
 # Editor
 export EDITOR='nvim'
 export VISUAL="$EDITOR"
@@ -62,13 +67,25 @@ node() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm
 npm() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npm "$@"; }
 npx() { unset -f node npm npx nvm; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; npx "$@"; }
 
-# Zoxide (smarter autojump replacement)
-eval "$(zoxide init zsh)"
+# Zoxide (smarter autojump replacement) - cached for fast startup
+_zoxide_cache="$HOME/.cache/zsh/zoxide_init.zsh"
+if [[ ! -f "$_zoxide_cache" || "$(whence -p zoxide)" -nt "$_zoxide_cache" ]]; then
+  mkdir -p "$HOME/.cache/zsh"
+  zoxide init zsh > "$_zoxide_cache"
+  zcompile "$_zoxide_cache"
+fi
+source "$_zoxide_cache"
 alias j="z"
 
-# Google Cloud SDK
-if [ -f '/Users/blake/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/blake/google-cloud-sdk/path.zsh.inc'; fi
-if [ -f '/Users/blake/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/blake/google-cloud-sdk/completion.zsh.inc'; fi
+# Google Cloud SDK - lazy-loaded on first use
+_load_gcloud() {
+  unset -f gcloud gsutil bq
+  if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+  if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+}
+gcloud() { _load_gcloud; gcloud "$@"; }
+gsutil() { _load_gcloud; gsutil "$@"; }
+bq() { _load_gcloud; bq "$@"; }
 
 # Github aliases
 alias openpr='gh pr view --json url -q .url | xargs open'
@@ -88,8 +105,27 @@ alias ll="eza -la --icons --group-directories-first"
 alias la="eza -a --icons --group-directories-first"
 alias tree="eza --tree --icons"
 
-# fzf - fuzzy finder (Ctrl+R for history, Ctrl+T for files)
-source <(fzf --zsh)
+# fzf - fuzzy finder (Ctrl+R for history, Ctrl+T for files) - cached for fast startup
+_fzf_cache="$HOME/.cache/zsh/fzf_init.zsh"
+if [[ ! -f "$_fzf_cache" || "$(whence -p fzf)" -nt "$_fzf_cache" ]]; then
+  mkdir -p "$HOME/.cache/zsh"
+  fzf --zsh > "$_fzf_cache"
+  zcompile "$_fzf_cache"
+fi
+source "$_fzf_cache"
 
-# Starship prompt
-eval "$(starship init zsh)"
+# Starship prompt - cached for fast startup
+_starship_cache="$HOME/.cache/zsh/starship_init.zsh"
+if [[ ! -f "$_starship_cache" || "$(whence -p starship)" -nt "$_starship_cache" ]]; then
+  mkdir -p "$HOME/.cache/zsh"
+  starship init zsh > "$_starship_cache"
+  zcompile "$_starship_cache"
+fi
+source "$_starship_cache"
+
+# bun completions
+[ -s "/Users/blake/.bun/_bun" ] && source "/Users/blake/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
