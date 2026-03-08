@@ -33,6 +33,7 @@ opt.fillchars = { vert = " ", stl = " ", stlnc = " " }
 opt.signcolumn = "yes"
 
 -- Buffers
+opt.hidden = true
 opt.updatetime = 250
 
 -- Security

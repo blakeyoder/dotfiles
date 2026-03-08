@@ -17,17 +17,20 @@ map("n", "<leader>a", "ggVG", { desc = "Select all" })
 -- Copy all
 map("n", "<leader>y", "ggVGy", { desc = "Copy all" })
 
--- Quick movement shortcuts (note: <leader>4 used by harpoon)
+-- Quick movement shortcuts
 map("n", "<leader>0", "$", { desc = "End of line" })
 map("n", "<leader>9", "(", { desc = "Previous sentence" })
 
 -- Buffer management
 map("n", "<leader>T", ":enew<CR>", { desc = "New buffer" })
-map("n", "<leader>l", ":bnext<CR>", { desc = "Next buffer" })
-map("n", "<leader>]", ":bnext<CR>", { desc = "Next buffer" })
-map("n", "<leader>[", ":bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<S-l>", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
+map("n", "<S-h>", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
+map("n", "<leader>]", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
+map("n", "<leader>[", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
 map("n", "<leader>bl", ":ls<CR>", { desc = "List buffers" })
 map("n", "<leader>bd", ":bdelete<CR>", { desc = "Close buffer" })
+map("n", "<leader>bp", ":BufferLineTogglePin<CR>", { desc = "Pin buffer", silent = true })
+map("n", "<leader>bo", ":BufferLineCloseOthers<CR>", { desc = "Close other buffers", silent = true })
 
 -- Map jj to escape
 map("i", "jj", "<ESC>", { desc = "Escape" })
@@ -50,14 +53,3 @@ map("v", "/", "/\\v", { desc = "Search with very magic" })
 
 -- Disable recording (q mapped to nothing)
 map("n", "q", "<Nop>", { desc = "Disable recording" })
-
--- Python debug shortcuts
-map("n", "<leader>p", "oimport pdb; pdb.set_trace()<Esc>:w<CR>", { desc = "Insert pdb" })
-map("n", "<leader>r", "ofrom remote_pdb import set_trace; set_trace()<Esc>:w<CR>", { desc = "Insert remote_pdb" })
-
--- Quick access to common project files
-map("n", "<leader>ep", ":e package.json<CR>", { desc = "Edit package.json" })
-map("n", "<leader>ea", ":e app.json<CR>", { desc = "Edit app.json" })
-map("n", "<leader>ec", ":e app.config.js<CR>", { desc = "Edit app.config.js" })
-map("n", "<leader>ee", ":e eas.json<CR>", { desc = "Edit eas.json" })
-map("n", "<leader>et", ":e tsconfig.json<CR>", { desc = "Edit tsconfig.json" })

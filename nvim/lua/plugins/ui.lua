@@ -1,4 +1,4 @@
--- UI plugins (statusline, file tree, buffers)
+-- UI plugins (statusline, file tree)
 
 return {
   -- Statusline (replaces vim-airline)
@@ -24,51 +24,6 @@ return {
     end,
   },
 
-  -- Buffer line (replaces airline tabline)
-  {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      -- Get gruvbox colors
-      local colors = {
-        bg = "#282828",
-        bg1 = "#3c3836",
-        bg2 = "#504945",
-        fg = "#ebdbb2",
-        yellow = "#d79921",
-        green = "#98971a",
-        blue = "#458588",
-        aqua = "#689d6a",
-        red = "#cc241d",
-        orange = "#d65d0e",
-        gray = "#928374",
-      }
-
-      require("bufferline").setup({
-        options = {
-          mode = "buffers",
-          diagnostics = "nvim_lsp",
-          show_buffer_close_icons = false,
-          show_close_icon = false,
-          separator_style = "thin",
-        },
-        highlights = {
-          fill = { bg = colors.bg },
-          background = { bg = colors.bg1, fg = colors.gray },
-          buffer_selected = { bg = colors.bg, fg = colors.fg, bold = true },
-          buffer_visible = { bg = colors.bg1, fg = colors.gray },
-          separator = { bg = colors.bg1, fg = colors.bg },
-          separator_selected = { bg = colors.bg, fg = colors.bg },
-          separator_visible = { bg = colors.bg1, fg = colors.bg },
-          tab = { bg = colors.bg1, fg = colors.gray },
-          tab_selected = { bg = colors.bg, fg = colors.fg },
-          tab_close = { bg = colors.bg1, fg = colors.red },
-        },
-      })
-    end,
-  },
-
   -- File tree (neo-tree)
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -89,7 +44,7 @@ return {
             hide_by_pattern = { "*.pyc" },
           },
           follow_current_file = { enabled = true },
-          hijack_netrw_behavior = "open_current",
+          hijack_netrw_behavior = "disabled",
         },
         window = {
           width = 28,
@@ -107,17 +62,33 @@ return {
           },
         },
       })
-      -- Keymaps (same as before)
       vim.keymap.set("n", "<C-n>", ":Neotree toggle<CR>", { desc = "Toggle file tree" })
       vim.keymap.set("n", "<C-m>", ":Neotree reveal<CR>", { desc = "Find file in tree" })
-      vim.keymap.set("n", "<leader>i", function()
-        local manager = require("neo-tree.sources.manager")
-        local state = manager.get_state("filesystem")
-        local filtered = state.filtered_items or {}
-        filtered.visible = not filtered.visible
-        state.filtered_items = filtered
-        require("neo-tree.sources.filesystem.commands").refresh(state)
-      end, { desc = "Toggle hidden files in tree" })
+    end,
+  },
+
+  -- Bufferline (tab bar for open buffers)
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("bufferline").setup({
+        options = {
+          diagnostics = "nvim_lsp",
+          show_close_icon = false,
+          show_buffer_close_icons = false,
+          separator_style = "thin",
+          offsets = {
+            {
+              filetype = "neo-tree",
+              text = "Files",
+              highlight = "Directory",
+              separator = true,
+            },
+          },
+        },
+      })
     end,
   },
 
@@ -130,15 +101,14 @@ return {
     end,
   },
 
-  -- Indent guides
+  -- Render markdown inline
   {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    config = function()
-      require("ibl").setup({
-        indent = { char = "│" },
-        scope = { enabled = false },
-      })
-    end,
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = "markdown",
+    opts = {},
   },
 }
