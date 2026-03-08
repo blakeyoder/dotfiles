@@ -109,8 +109,8 @@ Leader key is `<Space>`.
 ### Buffer Navigation (Bufferline)
 | Key | Action |
 |-----|--------|
-| `<S-l>` | Next buffer |
-| `<S-h>` | Previous buffer |
+| `<leader>l` | Next buffer |
+| `<leader>h` | Previous buffer |
 | `<leader>]` | Next buffer (alt) |
 | `<leader>[` | Previous buffer (alt) |
 | `<leader>bd` | Close buffer |

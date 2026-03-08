@@ -23,8 +23,8 @@ map("n", "<leader>9", "(", { desc = "Previous sentence" })
 
 -- Buffer management
 map("n", "<leader>T", ":enew<CR>", { desc = "New buffer" })
-map("n", "<S-l>", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
-map("n", "<S-h>", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
+map("n", "<leader>l", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
+map("n", "<leader>h", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
 map("n", "<leader>]", ":BufferLineCycleNext<CR>", { desc = "Next buffer", silent = true })
 map("n", "<leader>[", ":BufferLineCyclePrev<CR>", { desc = "Previous buffer", silent = true })
 map("n", "<leader>bl", ":ls<CR>", { desc = "List buffers" })
